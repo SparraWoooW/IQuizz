@@ -1,11 +1,12 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import '/result.dart';
 
-var quiz = IQuiz(); //place database in a variable
+var quiz = FirstQuiz(); //place database in a variable
 var questionNumber = 1; //initialize start of number question
 
-//database for questions and answers
-class IQuiz {
+class FirstQuiz {
   var questions = [
     "It is a financial plan that helps you to track money, make informed spending decisions and plan for your financial goal",
     "It is the outflow of money or assets to other individual or company as a payment for an item or service",
@@ -283,14 +284,16 @@ class IQuiz {
   ];
 }
 
-class Quiz3 extends StatefulWidget {
+class Quiz1 extends StatefulWidget {
   @override
-  State<Quiz3> createState() => _Quiz3State();
+  State<Quiz1> createState() => _Quiz1State();
 }
 
-class _Quiz3State extends State<Quiz3> {
+class _Quiz1State extends State<Quiz1> {
+  //Generate random number from 0 to number of question
+  int randomNumber = Random().nextInt(quiz.questions.length);
   //widget for choices
-  Widget Choices(String abcd, int x) {
+  Widget choose(String abcd, int x) {
     return Container(
       child: MaterialButton(
         height: 50,
@@ -312,12 +315,14 @@ class _Quiz3State extends State<Quiz3> {
           ),
         ),
         onPressed: () {
-          if (quiz.choices[questionNumber][x] ==
-              quiz.correctAnswers[questionNumber]) {
+          if (quiz.choices[randomNumber][x] ==
+              quiz.correctAnswers[randomNumber]) {
             debugPrint("Correct");
           } else {
             debugPrint("Wrong");
           }
+          //Generate random number from 0 to number of question
+          randomNumber = Random().nextInt(quiz.questions.length);
           //call a function after clicking any button
           updateQuestion();
         },
@@ -395,7 +400,7 @@ class _Quiz3State extends State<Quiz3> {
                         padding: const EdgeInsets.fromLTRB(14, 28, 13, 28),
                         child: new Center(
                           child: Text(
-                            quiz.questions[questionNumber],
+                            quiz.questions[randomNumber],
                             maxLines: 5,
                             textAlign: TextAlign.center,
                             textDirection: TextDirection.ltr,
@@ -423,10 +428,10 @@ class _Quiz3State extends State<Quiz3> {
                       ),
                       //display all choices
                       for (var x = 0;
-                          x < quiz.choices[questionNumber].length;
+                          x < quiz.choices[randomNumber].length;
                           x++) ...[
                         //call widget for choices and pass 2 parameters
-                        Choices(quiz.choices[questionNumber][x], x),
+                        choose(quiz.choices[randomNumber][x], x),
                         const Padding(padding: EdgeInsets.all(5.0))
                       ]
                     ],
@@ -440,12 +445,13 @@ class _Quiz3State extends State<Quiz3> {
 
   void updateQuestion() {
     setState(() {
-      if (questionNumber == 10) {
+      if (questionNumber == 20) {
         //Proceed to the result page
         Navigator.push(
             context, new MaterialPageRoute(builder: (context) => new Result()));
       } else {
         //proceed to next question
+
         questionNumber++;
       }
     });
