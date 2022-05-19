@@ -10,7 +10,8 @@ var skip = 0; //number of skipped question
 
 class Quiz extends StatefulWidget {
   final String y, titl;
-  Quiz({Key? mykey, required this.y, required this.titl}) : super(key: mykey);
+  const Quiz({Key? mykey, required this.y, required this.titl})
+      : super(key: mykey);
 
   @override
   State<Quiz> createState() => _QuizState();
@@ -34,7 +35,7 @@ class _QuizState extends State<Quiz> {
         child: Text(
           abcd, //display choices from a to d
           //textAlign: TextAlign.left,
-          style: TextStyle(
+          style: const TextStyle(
             fontFamily: 'Poppins',
             fontSize: 18.0,
             fontWeight: FontWeight.w500,
@@ -53,10 +54,10 @@ class _QuizState extends State<Quiz> {
           //call a function after clicking any button
           updateQuestion();
         },
-        splashColor: Color.fromRGBO(5, 195, 107, 100),
+        splashColor: const Color.fromRGBO(5, 195, 107, 100),
       ),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(81, 231, 168, 100),
+        color: const Color.fromRGBO(81, 231, 168, 100),
         borderRadius: BorderRadius.circular(25),
         boxShadow: const [
           BoxShadow(
@@ -108,7 +109,7 @@ class _QuizState extends State<Quiz> {
         appBar: AppBar(
           title: Text(
             widget.titl,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               color: Colors.black,
               fontFamily: 'Poppins-ExtraBold',
@@ -129,14 +130,14 @@ class _QuizState extends State<Quiz> {
           ),
         ),
         body: Container(
-          margin: EdgeInsets.fromLTRB(26.0, 10.0, 26.0, 35),
+          margin: const EdgeInsets.fromLTRB(26.0, 10.0, 26.0, 35),
           child: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
                 Container(
-                  margin: EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 15),
+                  margin: const EdgeInsets.fromLTRB(12.0, 10.0, 12.0, 15),
                   alignment: Alignment.topCenter,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -146,8 +147,8 @@ class _QuizState extends State<Quiz> {
                       Text(timestring),
                       //Display question number
                       Text(
-                        "Question ${questionNumber}",
-                        style: TextStyle(
+                        "Question $questionNumber",
+                        style: const TextStyle(
                             fontSize: 21,
                             fontFamily: 'Poppins Medium',
                             fontWeight: FontWeight.w500),
@@ -155,15 +156,15 @@ class _QuizState extends State<Quiz> {
 
                       // Question-Box
                       Container(
-                        margin: EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 20.0),
+                        margin: const EdgeInsets.fromLTRB(5.0, 20.0, 5.0, 20.0),
                         padding: const EdgeInsets.fromLTRB(14, 28, 13, 28),
-                        child: new Center(
+                        child: Center(
                           child: Text(
                             quiz.tanong[int.parse(widget.y)][randomNumber],
                             maxLines: 5,
                             textAlign: TextAlign.center,
                             textDirection: TextDirection.ltr,
-                            style: TextStyle(
+                            style: const TextStyle(
                               fontSize: 22.0,
                               fontFamily: 'Lora',
                               fontWeight: FontWeight.w600,
@@ -171,7 +172,7 @@ class _QuizState extends State<Quiz> {
                           ),
                         ),
                         decoration: BoxDecoration(
-                          color: Color.fromRGBO(81, 231, 168, 100),
+                          color: const Color.fromRGBO(81, 231, 168, 100),
                           borderRadius: BorderRadius.circular(25),
                           boxShadow: const [
                             BoxShadow(
@@ -199,19 +200,19 @@ class _QuizState extends State<Quiz> {
                         const Padding(padding: EdgeInsets.all(5.0))
                       ],
 
-                      new MaterialButton(
+                      MaterialButton(
                         height: 35.0,
                         minWidth: 120.0,
                         color: Colors.white,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
-                          side: BorderSide(
+                          side: const BorderSide(
                               color: Color.fromRGBO(5, 195, 107, 50), width: 3),
                         ),
-                        child: new Text(
+                        child: const Text(
                           "SKIP ",
                           textAlign: TextAlign.center,
-                          style: new TextStyle(
+                          style: TextStyle(
                             fontFamily: 'Poppins Medium',
                             fontSize: 18.0,
                             fontWeight: FontWeight.w500,
@@ -228,7 +229,7 @@ class _QuizState extends State<Quiz> {
                           //call a function after clicking any button
                           updateQuestion(),
                         },
-                        splashColor: Color.fromRGBO(5, 195, 107, 50),
+                        splashColor: const Color.fromRGBO(5, 195, 107, 50),
                       ),
                     ],
                   ),
@@ -242,19 +243,19 @@ class _QuizState extends State<Quiz> {
   void updateQuestion() {
     setState(() {
       canceltimer = false;
-      if (questionNumber == 20) {
-        //Proceed to the result page
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => Result()));
-      } else {
+      if (questionNumber != 20) {
         //proceed to next question
         randomNumber =
             Random().nextInt(quiz.tanong[int.parse(widget.y)].length);
 
         questionNumber++;
+        timeLeft = 10;
+        starttimer();
+        //Proceed to the result page
+      } else {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Result()));
       }
-      timeLeft = 10;
-      starttimer();
     });
   }
 }

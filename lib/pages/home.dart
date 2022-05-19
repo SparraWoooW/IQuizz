@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quizapp/pages/quiz.dart';
 import 'package:flutter_quizapp/pages/categorypage.dart';
 
+// ignore: use_key_in_widget_constructors
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -9,6 +9,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   void toCategoryPage(x) {
+    // ignore: prefer_typing_uninitialized_variables
     var numCat;
     if (x == 1) {
       //for finance category

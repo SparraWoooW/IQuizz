@@ -1,3 +1,4 @@
+// ignore_for_file: file_names, prefer_typing_uninitialized_variables
 import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/pages/quiz.dart';
 import 'package:toggle_switch/toggle_switch.dart';
@@ -7,7 +8,7 @@ import 'package:flutter_quizapp/pages/questionandanswer.dart';
 var categ = Categories();
 
 class CategoryPage extends StatefulWidget {
-  CategoryPage({Key? mykey, required this.title}) : super(key: mykey);
+  const CategoryPage({Key? mykey, required this.title}) : super(key: mykey);
   final String title;
 
   @override
@@ -15,7 +16,6 @@ class CategoryPage extends StatefulWidget {
 }
 
 class _CategoryPage extends State<CategoryPage> {
-  @override
   int selectedIndex = 0;
   final screens2 = [
     'Description',
@@ -24,7 +24,7 @@ class _CategoryPage extends State<CategoryPage> {
   late var screens = [
     Text(categ.categoryDescription[int.parse(widget.title)],
         //textAlign: TextAlign.justify,
-        style: TextStyle(
+        style: const TextStyle(
           height: 1.8,
           color: Colors.black,
           fontSize: 16,
@@ -54,7 +54,7 @@ class _CategoryPage extends State<CategoryPage> {
               onTap: followLink,
               child: Text(
                 categ.categoryLinkstitle[int.parse(widget.title)][x],
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black,
                   fontSize: 17,
                   fontFamily: 'Poppins-Medium',
@@ -98,7 +98,7 @@ class _CategoryPage extends State<CategoryPage> {
                   mainAxisSize: MainAxisSize.max,
                   children: <Widget>[
                     Text(categ.categoryTitle[int.parse(widget.title)],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.black,
                           fontSize: 30,
                           fontFamily: 'Poppins-Black',
