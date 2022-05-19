@@ -861,3 +861,48 @@ class QuestionAnswer {
     ["qqqq1s2", "qqqq2s1"]
   ];
 }
+
+class Categories {
+  var categoryTitle = [
+    "Personal\nFinancesss",
+    "Investment\nand Portfolio\nManagement",
+    "Behavioral\nFinance",
+    "Capital\nMarkets"
+  ];
+  var categoryDescription = [
+    "Personal finance is a term that covers managing your money as well as saving and investing. It encompasses budgeting, banking, insurance, mortgages, investments, retirement planning, and tax and estate planning. The term often refers to the entire industry that provides financial services to individuals and households and advises them about financial and investment opportunities.\nPersonal finance is about meeting personal financial goals, whether it’s having enough for short-term financial needs, planning for retirement, or saving for your child’s college education. It all depends on your income, expenses, living requirements, and individual goals and desires and coming up with a plan to fulfill those needs within your financial constraints. To make the most of your income and savings, it’s important to become financially literate, so you can distinguish between good and bad advice and make smart decisions.",
+    "Portfolio management is the art and science of selecting and overseeing a group of investments that meet the long-term financial objectives and risk tolerance of a client, a company, or an institution.\nProfessional licensed portfolio managers work on behalf of clients, while individuals may choose to build and manage their own portfolios. In either case, the portfolio manager's ultimate goal is to maximize the investments' expected return within an appropriate level of risk exposure.\nPortfolio management requires the ability to weigh strengths and weaknesses, opportunities, and threats across the full spectrum of investments. The choices involve trade-offs, from debt versus equity to domestic versus international and growth versus safety.",
+    "Behavioral finance is the study of the influence of psychology on the behavior of investors or financial analysts. It also includes the subsequent effects on the markets. It focuses on the fact that investors are not always rational, have limits to their self-control, and are influenced by their own biases.\nMoreover, influences and biases can be the source for explanation of all types of market anomalies and specifically market anomalies in the stock market, such as severe rises or falls in stock price.\nBehavioral finance can be analyzed from a variety of perspectives. Stock market returns are one area of finance where psychological behaviors are often assumed to influence market outcomes and returns but there are also many different angles for observation. The purpose of the classification of behavioral finance is to help understand why people make certain financial choices and how those choices can affect markets. Within behavioral finance, it is assumed that financial participants are not perfectly rat	ional and self-controlled but rather psychologically influential with somewhat normal and self-controlling tendencies.",
+    "Capital markets are financial markets that bring buyers and sellers together to trade stocks, bonds, currencies, and other financial assets. Capital markets include the stock market and the bond market. They help people with ideas become entrepreneurs and help small businesses grow into big companies. They also give folks like you and me opportunities to save and invest for our futures.\nCapital market is a broad term used to describe the in-person and digital spaces in which various entities trade different types of financial instruments. These venues may include the stock market, the bond market, and the currency and foreign exchange markets. Most markets are concentrated in major financial centers such as New York, London, Singapore, and Hong Kong.\nCapital markets are composed of the suppliers and users of funds. Suppliers include households—through the savings accounts they hold with banks—as well as institutions like pension and retirement funds, life insurance companies, charitable foundations, and n	on-financial companies that generate excess cash. The \"users\" of the funds distributed on capital markets include home and motor vehicle purchasers, non-financial companies, and governments financing infrastructure investment and operating expenses.",
+  ];
+  var categoryLinks = [
+    [
+      "https://www.investopedia.com/terms/p/personalfinance.asp",
+      "https://corporatefinanceinstitute.com/resources/knowledge/finance/personal-finance/"
+    ],
+    ["https://www.investopedia.com/terms/p/portfoliomanagement.asp"],
+    [
+      "https://www.investopedia.com/terms/b/behavioralfinance.asp",
+      "https://corporatefinanceinstitute.com/resources/knowledge/trading-investing/behavioral-finance/"
+    ],
+    [
+      "https://www.investopedia.com/terms/c/capitalmarkets.asp",
+      "https://www.stlouisfed.org/education/tools-for-enhancing-the-stock-market-game-invest-it-forward/episode-1-understanding-capital-markets"
+    ]
+  ];
+  var categoryLinkstitle = [
+    ["Investopedia - Personal Finance", "CFI - Personal Finance"],
+    ["Investopedia - Portfolio Management"],
+    ["Investopedia - Behavioral Finance", "CFI - Behavioral Finance"],
+    [
+      "Investopedia - Capital Markets",
+      "St. Louis Fed -\nUnderstanding Capital Markets"
+    ]
+  ];
+  List<String> categoryimage = [
+    "assets/images/personal_finance.png",
+    "assets/images/investment_and_portfolio_management.png",
+    "assets/images/behavioral_finance.png",
+    "assets/images/capital_markets.png"
+  ];
+}

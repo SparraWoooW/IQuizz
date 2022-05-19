@@ -1,16 +1,16 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:flutter/material.dart';
-import '/result.dart';
-import 'package:flutter_quizapp/questionandanswer.dart';
+import 'package:flutter_quizapp/pages/result.dart';
+import 'package:flutter_quizapp/pages/questionandanswer.dart';
 
 var quiz = QuestionAnswer(); //place database in a variable
 var questionNumber = 1; //initialize start of number question
-var skip = 0;
+var skip = 0; //number of skipped question
 
 class Quiz extends StatefulWidget {
-  var y, titl;
-  Quiz({Key? mykey, this.y, this.titl}) : super(key: mykey);
+  final String y, titl;
+  Quiz({Key? mykey, required this.y, required this.titl}) : super(key: mykey);
 
   @override
   State<Quiz> createState() => _QuizState();
@@ -41,9 +41,10 @@ class _QuizState extends State<Quiz> {
             color: Colors.black,
           ),
         ),
+        //onpress button for choices
         onPressed: () {
-          if (quiz.sagot[int.parse("${widget.y}")][randomNumber][x] ==
-              quiz.tama[int.parse("${widget.y}")][randomNumber]) {
+          if (quiz.sagot[int.parse(widget.y)][randomNumber][x] ==
+              quiz.tama[int.parse(widget.y)][randomNumber]) {
             debugPrint("Correct");
           } else {
             debugPrint("Wrong");
@@ -81,7 +82,7 @@ class _QuizState extends State<Quiz> {
     super.initState();
   }
 
-//timer countdown
+//timer countdown function
   void starttimer() async {
     const onesec = Duration(seconds: 1);
     Timer.periodic(onesec, (Timer t) {
@@ -106,7 +107,7 @@ class _QuizState extends State<Quiz> {
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           title: Text(
-            "${widget.titl}",
+            widget.titl,
             style: TextStyle(
               fontSize: 24,
               color: Colors.black,
@@ -158,7 +159,7 @@ class _QuizState extends State<Quiz> {
                         padding: const EdgeInsets.fromLTRB(14, 28, 13, 28),
                         child: new Center(
                           child: Text(
-                            quiz.tanong[int.parse("${widget.y}")][randomNumber],
+                            quiz.tanong[int.parse(widget.y)][randomNumber],
                             maxLines: 5,
                             textAlign: TextAlign.center,
                             textDirection: TextDirection.ltr,
@@ -188,14 +189,12 @@ class _QuizState extends State<Quiz> {
 
                       for (int x = 0;
                           x <
-                              quiz.sagot[int.parse("${widget.y}")][randomNumber]
+                              quiz.sagot[int.parse(widget.y)][randomNumber]
                                   .length;
                           x++) ...[
                         //call widget for choices and pass 2 parameters
 
-                        choose(
-                            quiz.sagot[int.parse("${widget.y}")][randomNumber]
-                                [x],
+                        choose(quiz.sagot[int.parse(widget.y)][randomNumber][x],
                             x),
                         const Padding(padding: EdgeInsets.all(5.0))
                       ],
@@ -219,11 +218,11 @@ class _QuizState extends State<Quiz> {
                             color: Colors.black,
                           ),
                         ),
+                        //onpress for skip button
                         onPressed: () => {
                           //Generate random number from 0 to number of question
-                          //Generate random number from 0 to number of question
-                          randomNumber = Random().nextInt(
-                              quiz.tanong[int.parse("${widget.y}")].length),
+                          randomNumber = Random()
+                              .nextInt(quiz.tanong[int.parse(widget.y)].length),
                           skip++,
                           debugPrint(skip.toString()),
                           //call a function after clicking any button
@@ -246,11 +245,11 @@ class _QuizState extends State<Quiz> {
       if (questionNumber == 20) {
         //Proceed to the result page
         Navigator.push(
-            context, new MaterialPageRoute(builder: (context) => new Result()));
+            context, MaterialPageRoute(builder: (context) => Result()));
       } else {
         //proceed to next question
         randomNumber =
-            Random().nextInt(quiz.tanong[int.parse("${widget.y}")].length);
+            Random().nextInt(quiz.tanong[int.parse(widget.y)].length);
 
         questionNumber++;
       }

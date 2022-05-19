@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quizapp/quiz.dart';
+import 'package:flutter_quizapp/pages/quiz.dart';
+import 'package:flutter_quizapp/pages/categorypage.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -7,40 +8,25 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  void asd(x) {
+  void toCategoryPage(x) {
+    var numCat;
     if (x == 1) {
-      //for finance quiz
-      var nums = 0;
-      var title = "Personal Finance";
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Quiz(y: nums, titl: title)),
-      );
+      //for finance category
+      numCat = "0";
     } else if (x == 2) {
-      //for investment quiz
-      var nums = 1;
-      var title = "Investment and Portfolio Management";
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Quiz(y: nums, titl: title)),
-      );
+      //for investment category
+      numCat = "1";
     } else if (x == 3) {
-      //for behavioral quiz
-      var nums = 2;
-      var title = "Behavioral Finance";
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Quiz(y: nums, titl: title)),
-      );
+      //for behavioral category
+      numCat = "2";
     } else if (x == 4) {
-      // for capital quiz
-      var nums = 3;
-      var title = "Capital Market";
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => Quiz(y: nums, titl: title)),
-      );
+      // for capital category
+      numCat = "3";
     }
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => CategoryPage(title: numCat)),
+    );
   }
 
   @override
@@ -96,7 +82,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(15),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
-                    onTap: () => {asd(1)},
+                    onTap: () => {toCategoryPage(1)},
                     child: Ink.image(
                       image: const AssetImage('images/personal.png'),
                       height: 210,
@@ -112,7 +98,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(15),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
-                    onTap: () => {asd(2)},
+                    onTap: () => {toCategoryPage(2)},
                     child: Ink.image(
                       image: const AssetImage('images/investment.png'),
                       height: 210,
@@ -135,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(15),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
-                    onTap: () => {asd(3)},
+                    onTap: () => {toCategoryPage(3)},
                     child: Ink.image(
                       image: const AssetImage('images/behavioral.png'),
                       height: 210,
@@ -151,7 +137,7 @@ class _HomePageState extends State<HomePage> {
                   borderRadius: BorderRadius.circular(15),
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
-                    onTap: () => {asd(4)},
+                    onTap: () => {toCategoryPage(4)},
                     child: Ink.image(
                       image: const AssetImage('images/capital.png'),
                       height: 210,
