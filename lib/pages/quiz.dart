@@ -54,7 +54,8 @@ class _QuizState extends State<Quiz> {
             wrongAnswer++;
             debugPrint("wrong" + wrongAnswer.toString());
           }
-          //Reset timer
+          //Canceltimer timer
+          canceltimer = true;
           //call a function after clicking any button
           updateQuestion();
         },
@@ -95,6 +96,7 @@ class _QuizState extends State<Quiz> {
         if (timeLeft < 1) {
           skipQuestion++;
           debugPrint("skip" + skipQuestion.toString());
+          t.cancel();
           updateQuestion();
         } else if (canceltimer == true) {
           t.cancel();
@@ -245,10 +247,10 @@ class _QuizState extends State<Quiz> {
 
   void updateQuestion() {
     setState(() {
-      canceltimer = false;
-
       if (questionNumber < 20) {
+        canceltimer = false;
         timeLeft = 10; //delay display 10
+
         //proceed to next question
         randomNumber =
             Random().nextInt(quiz.tanong[int.parse(widget.y)].length);
