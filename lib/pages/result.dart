@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-var correct = 5;
-
 // ignore: use_key_in_widget_constructors
 class Result extends StatefulWidget {
   @override
@@ -114,9 +112,9 @@ class _ResultState extends State<Result> {
                                   radius: 160.0,
                                   lineWidth: 16.0,
                                   animation: true,
-                                  percent: correct / 10,
+                                  percent: 1 / 10,
                                   center: Text(
-                                    "$correct/10", //pedeng score na lang instead of percentage
+                                    "1/10", //pedeng score na lang instead of percentage
                                     style: const TextStyle(
                                         fontFamily: 'Poppins-SemiBold',
                                         fontWeight: FontWeight.w600,

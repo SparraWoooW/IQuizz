@@ -6,7 +6,9 @@ import 'package:flutter_quizapp/pages/questionandanswer.dart';
 
 var quiz = QuestionAnswer(); //place database in a variable
 var questionNumber = 1; //initialize start of number question
-var skip = 0; //number of skipped question
+var skipQuestion = 0;
+var correctAnswer = 0;
+var wrongAnswer = 0; //number of skipped question/ correct answer/wrong answer
 
 class Quiz extends StatefulWidget {
   final String y, titl;
@@ -46,9 +48,11 @@ class _QuizState extends State<Quiz> {
         onPressed: () {
           if (quiz.sagot[int.parse(widget.y)][randomNumber][x] ==
               quiz.tama[int.parse(widget.y)][randomNumber]) {
-            debugPrint("Correct");
+            correctAnswer++;
+            debugPrint("correct" + correctAnswer.toString());
           } else {
-            debugPrint("Wrong");
+            wrongAnswer++;
+            debugPrint("wrong" + wrongAnswer.toString());
           }
           //Reset timer
           //call a function after clicking any button
@@ -89,10 +93,9 @@ class _QuizState extends State<Quiz> {
     Timer.periodic(onesec, (Timer t) {
       setState(() {
         if (timeLeft < 1) {
-          t.cancel();
-
+          skipQuestion++;
+          debugPrint("skip" + skipQuestion.toString());
           updateQuestion();
-          skip++;
         } else if (canceltimer == true) {
           t.cancel();
         } else {
@@ -224,8 +227,8 @@ class _QuizState extends State<Quiz> {
                           //Generate random number from 0 to number of question
                           randomNumber = Random()
                               .nextInt(quiz.tanong[int.parse(widget.y)].length),
-                          skip++,
-                          debugPrint(skip.toString()),
+                          skipQuestion++,
+                          debugPrint("skip" + skipQuestion.toString()),
                           //call a function after clicking any button
                           updateQuestion(),
                         },
@@ -243,14 +246,15 @@ class _QuizState extends State<Quiz> {
   void updateQuestion() {
     setState(() {
       canceltimer = false;
-      if (questionNumber != 20) {
+
+      if (questionNumber < 20) {
+        timeLeft = 10; //delay display 10
         //proceed to next question
         randomNumber =
             Random().nextInt(quiz.tanong[int.parse(widget.y)].length);
 
         questionNumber++;
-        timeLeft = 10;
-        starttimer();
+
         //Proceed to the result page
       } else {
         Navigator.push(
