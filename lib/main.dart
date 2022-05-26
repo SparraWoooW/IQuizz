@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_quizapp/pages/history.dart';
 import 'package:flutter_quizapp/pages/home.dart';
 import 'package:flutter_quizapp/pages/profile.dart';
 import 'package:flutter_quizapp/pages/settings.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox('historyBox');
   runApp(const MyApp());
 }
 
@@ -13,6 +18,10 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return MaterialApp(
       title: 'Investor Quiz App',
       theme: ThemeData(
