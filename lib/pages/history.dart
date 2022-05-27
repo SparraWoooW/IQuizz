@@ -5,10 +5,6 @@ import 'package:flutter_quizapp/pages/quiz.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_quizapp/pages/historydetail.dart';
 
-List<String> historyQuestion = [];
-List<String> historyAnswers = [];
-List<String> historyCorrect = [];
-
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
 
@@ -49,6 +45,27 @@ class _HistoryPageState extends State<HistoryPage> {
 
       // we use "reversed" to sort items in order from the latest to the oldest
     });
+  }
+
+  void tohistoryDetails(dynamic q, dynamic a, dynamic c) {
+    q = q.replaceAll("]", " "); //remove last char ]
+    a = a.replaceAll("]", " ");
+    c = c.replaceAll("]", " ");
+    var Q = ((q.replaceAll("[", " ")).split('-,')); //remove first char [
+    var A = ((a.replaceAll("[", " ")).split(','));
+    var C = ((c.replaceAll("[", " ")).split(','));
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+          builder: (context) => Details(
+              historyQuestion: Q, historyAnswers: A, historyCorrect: C)),
+    );
+  }
+
+  Future<void> _updateItem(int itemKey, Map<String, dynamic> item) async {
+    await _historybox.put(itemKey, item);
+    _refreshItems(); // Update the UI
   }
 
   @override
@@ -130,15 +147,10 @@ class _HistoryPageState extends State<HistoryPage> {
                                       ),
                                     ),
                                     onPressed: () => {
-                                      historyQuestion = currentItem[questions],
-                                      historyAnswers = currentItem[answers],
-                                      historyCorrect =
-                                          currentItem[correctAnswer],
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => Details()),
-                                      )
+                                      tohistoryDetails(
+                                          currentItem['questions'],
+                                          currentItem['answers'],
+                                          currentItem['correctAnswer'])
                                     },
                                     splashColor:
                                         const Color.fromRGBO(5, 195, 107, 100),
@@ -157,7 +169,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                   ),
                                 ),
                                 Text(
-                                  currentItem['timeTaken'],
+                                  currentItem['key'].toString(),
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontFamily: 'Poppins',
