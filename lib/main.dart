@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_quizapp/pages/history.dart';
+import 'package:flutter_quizapp/pages/historyCategory.dart';
 import 'package:flutter_quizapp/pages/home.dart';
 import 'package:flutter_quizapp/pages/profile.dart';
 import 'package:flutter_quizapp/pages/settings.dart';
@@ -9,7 +9,10 @@ import 'package:hive_flutter/hive_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
-  await Hive.openBox('historyBox');
+  await Hive.openBox('Personal_Finance');
+  await Hive.openBox('Investment_and_Portfolio_Management');
+  await Hive.openBox('Behavioral_Finance');
+  await Hive.openBox('Capital_Market');
   runApp(const MyApp());
 }
 
@@ -44,7 +47,7 @@ class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
   final screens = [
     HomePage(),
-    const HistoryPage(),
+    const HistoryPages(),
     const ProfilePage(),
     const SettingsPage(),
   ];

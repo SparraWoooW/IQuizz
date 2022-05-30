@@ -6,7 +6,8 @@ import 'package:percent_indicator/percent_indicator.dart';
 import 'package:flutter_quizapp/pages/historydetail.dart';
 
 class HistoryPage extends StatefulWidget {
-  const HistoryPage({Key? key}) : super(key: key);
+  final String category;
+  const HistoryPage({Key? key, required this.category}) : super(key: key);
 
   @override
   State<HistoryPage> createState() => _HistoryPageState();
@@ -15,16 +16,13 @@ class HistoryPage extends StatefulWidget {
 class _HistoryPageState extends State<HistoryPage> {
   List<Map<String, dynamic>> _items = [];
 
-  final _historybox = Hive.box('historyBox');
-
   @override
   void initState() {
+    Hive.openBox(widget.category);
+    final _historybox = Hive.box(widget.category);
+    print(widget.category);
     super.initState();
-    _refreshItems(); // Load data when app starts
-  }
 
-  // Get all items from the database
-  void _refreshItems() {
     final data = _historybox.keys.map((key) {
       final value = _historybox.get(key);
       return {
@@ -39,21 +37,18 @@ class _HistoryPageState extends State<HistoryPage> {
         "timeTaken": value['timeTaken']
       };
     }).toList();
-
-    setState(() {
-      _items = data.reversed.toList();
-
-      // we use "reversed" to sort items in order from the latest to the oldest
-    });
+    _items = data.reversed.toList();
   }
+
+  // Get all items from the database
 
   void tohistoryDetails(dynamic q, dynamic a, dynamic c) {
     q = q.replaceAll("]", " "); //remove last char ]
     a = a.replaceAll("]", " ");
     c = c.replaceAll("]", " ");
     var Q = ((q.replaceAll("[", " ")).split('-,')); //remove first char [
-    var A = ((a.replaceAll("[", " ")).split(','));
-    var C = ((c.replaceAll("[", " ")).split(','));
+    var A = ((a.replaceAll("[", " ")).split(', '));
+    var C = ((c.replaceAll("[", " ")).split(', '));
 
     Navigator.push(
       context,
@@ -63,14 +58,8 @@ class _HistoryPageState extends State<HistoryPage> {
     );
   }
 
-  Future<void> _updateItem(int itemKey, Map<String, dynamic> item) async {
-    await _historybox.put(itemKey, item);
-    _refreshItems(); // Update the UI
-  }
-
   @override
   Widget build(BuildContext context) {
-    _refreshItems();
     return Scaffold(
       appBar: AppBar(
         title: const Text('History'),
@@ -89,7 +78,7 @@ class _HistoryPageState extends State<HistoryPage> {
                 final currentItem = _items[index];
                 return Column(
                   children: [
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                     Material(
                       borderRadius: BorderRadius.circular(15),
                       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -116,19 +105,19 @@ class _HistoryPageState extends State<HistoryPage> {
                                                   10) *
                                               100)
                                           .toString(),
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                           fontFamily: 'Poppins-SemiBold',
                                           fontWeight: FontWeight.w600,
                                           fontSize: 30.0),
                                     ),
                                     circularStrokeCap: CircularStrokeCap.round,
                                     progressColor:
-                                        Color.fromRGBO(5, 195, 107, 100),
+                                        const Color.fromRGBO(5, 195, 107, 100),
                                     backgroundColor:
-                                        Color.fromRGBO(83, 215, 80, 0.3),
+                                        const Color.fromRGBO(83, 215, 80, 0.3),
                                   ),
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 SizedBox(
                                   width: 120,
                                   height: 30,
@@ -158,7 +147,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                 ),
                               ],
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             Column(
                               children: <Widget>[
                                 const Text(
@@ -170,7 +159,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                 ),
                                 Text(
                                   currentItem['key'].toString(),
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 18,
                                     fontFamily: 'Poppins',
                                   ),
@@ -195,7 +184,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                           child: Center(
                                             child: Text(
                                               currentItem['numCorrect'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 20,
                                                 fontFamily: 'Poppins-Medium',
                                                 color: Colors.white,
@@ -214,7 +203,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(width: 12),
+                                    const SizedBox(width: 12),
                                     //==========================Skipped
                                     Column(
                                       children: [
@@ -229,7 +218,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                           child: Center(
                                             child: Text(
                                               currentItem['numSkipped'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 20,
                                                 fontFamily: 'Poppins-Medium',
                                                 color: Colors.white,
@@ -248,7 +237,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                         ),
                                       ],
                                     ),
-                                    SizedBox(width: 12),
+                                    const SizedBox(width: 12),
                                     //==========================Wrong
                                     Column(
                                       children: [
@@ -263,7 +252,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                           child: Center(
                                             child: Text(
                                               currentItem['numWrong'],
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                 fontSize: 20,
                                                 fontFamily: 'Poppins-Medium',
                                                 color: Colors.white,
@@ -297,7 +286,7 @@ class _HistoryPageState extends State<HistoryPage> {
                         ),
                       ),
                     ),
-                    SizedBox(height: 5),
+                    const SizedBox(height: 5),
                   ],
                 );
               }),

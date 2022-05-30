@@ -241,19 +241,19 @@ class _CategoryPage extends State<CategoryPage> {
     if (x == 0) {
       //for finance quiz
       nums = "0";
-      titles = "Personal Finance";
+      titles = "Personal_Finance";
     } else if (x == 1) {
       //for investment quiz
       nums = "1";
-      titles = "Investment and Portfolio Management";
+      titles = "Investment_and_Portfolio_Management";
     } else if (x == 2) {
       //for behavioral quiz
       nums = "2";
-      titles = "Behavioral Finance";
+      titles = "Behavioral_Finance";
     } else if (x == 3) {
       // for capital quiz
       nums = "3";
-      titles = "Capital Market";
+      titles = "Capital_Market";
     }
     Navigator.push(
       context,

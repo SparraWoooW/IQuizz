@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_quizapp/pages/categorypage.dart';
+import '/pages/categorypage.dart';
 
-// ignore: use_key_in_widget_constructors
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -44,14 +43,6 @@ class _HomePageState extends State<HomePage> {
           ),
           backgroundColor: Colors.transparent,
           elevation: 0, // 0 yung value para mawala yung back shadow sa app bar
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.bookmark_outline_rounded),
-              iconSize: 35,
-              color: Colors.black,
-              onPressed: () => {},
-            ),
-          ],
         ),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -85,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () => {toCategoryPage(1)},
                     child: Ink.image(
-                      image: const AssetImage('images/personal.png'),
+                      image: const AssetImage('assets/images/personal.png'),
                       height: 210,
                       width: 160,
                       fit: BoxFit.contain,
@@ -101,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () => {toCategoryPage(2)},
                     child: Ink.image(
-                      image: const AssetImage('images/investment.png'),
+                      image: const AssetImage('assets/images/investment.png'),
                       height: 210,
                       width: 160,
                       fit: BoxFit.contain,
@@ -124,7 +115,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () => {toCategoryPage(3)},
                     child: Ink.image(
-                      image: const AssetImage('images/behavioral.png'),
+                      image: const AssetImage('assets/images/behavioral.png'),
                       height: 210,
                       width: 160,
                       fit: BoxFit.contain,
@@ -140,7 +131,7 @@ class _HomePageState extends State<HomePage> {
                   child: InkWell(
                     onTap: () => {toCategoryPage(4)},
                     child: Ink.image(
-                      image: const AssetImage('images/capital.png'),
+                      image: const AssetImage('assets/images/capital.png'),
                       height: 210,
                       width: 160,
                       fit: BoxFit.contain,
