@@ -47,8 +47,11 @@ class _HistoryPageState extends State<HistoryPage> {
     a = a.replaceAll("]", " ");
     c = c.replaceAll("]", " ");
     var Q = ((q.replaceAll("[", " ")).split('-,')); //remove first char [
-    var A = ((a.replaceAll("[", " ")).split(', '));
-    var C = ((c.replaceAll("[", " ")).split(', '));
+    var A = ((a.replaceAll("[", " ")).split(','));
+    var C = ((c.replaceAll("[", " ")).split(','));
+    print(Q);
+    print(A);
+    print(C);
 
     Navigator.push(
       context,
@@ -158,7 +161,7 @@ class _HistoryPageState extends State<HistoryPage> {
                                   ),
                                 ),
                                 Text(
-                                  currentItem['key'].toString(),
+                                  currentItem['timeTaken'].toString(),
                                   style: const TextStyle(
                                     fontSize: 18,
                                     fontFamily: 'Poppins',

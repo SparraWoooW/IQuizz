@@ -20,7 +20,11 @@ class _SettingsPageState extends State<SettingsPage> {
     );
   }
 
-  Widget settingCard(text, Icon icon, Function func) {
+  Widget settingCard(
+    text,
+    Icon icon,
+    Null Function() param2,
+  ) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4),
@@ -32,7 +36,7 @@ class _SettingsPageState extends State<SettingsPage> {
         leading: icon,
         title: Text(text),
         trailing: const Icon(Icons.arrow_forward_ios_outlined),
-        onTap: func(),
+        onTap: param2,
       ),
     );
   }
@@ -89,6 +93,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ),
               ),
+
               const SizedBox(height: 12.0),
               //ACCOUNT
               settingText("Account"),
@@ -97,6 +102,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   "Avatar", const Icon(Icons.account_circle_outlined), () {}),
               settingCard("Name",
                   const Icon(Icons.account_circle, color: Colors.black), () {}),
+
               settingCard(
                   "Email",
                   const Icon(Icons.alternate_email_outlined,

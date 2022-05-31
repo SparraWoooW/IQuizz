@@ -13,73 +13,115 @@ class Details extends StatefulWidget {
 }
 
 class _DetailsState extends State<Details> {
-  Widget display(int num, Color colors) {
+  Widget display(int num, Color cardColor, IconData icon, String title,
+      Color titleBgColor, Color titleTxtColor) {
     return Container(
-      height: 250.0,
-      width: 320.0,
+      padding: const EdgeInsets.fromLTRB(15, 15, 15, 15),
       child: Center(
-        child: RichText(
-          maxLines: 9,
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            children: [
-              TextSpan(
-                text: "Question " + (num + 1).toString() + ":",
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 17.0,
-                  fontFamily: 'Poppins-Medium',
-                  fontWeight: FontWeight.w600,
-                  height: 2,
+        child: Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  "Question " + (num + 1).toString(),
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 17.0,
+                    fontFamily: 'Poppins-Medium',
+                    fontWeight: FontWeight.w600,
+                    height: 2,
+                  ),
                 ),
-              ),
-              TextSpan(
-                text: x[num],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 15.0,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w500,
-                  height: 2,
+                Container(
+                  height: 40,
+                  width: 130,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(icon, size: 25, color: titleTxtColor),
+                      SizedBox(width: 5),
+                      Text(title,
+                          style: TextStyle(
+                            color: titleTxtColor,
+                            fontSize: 17,
+                            fontFamily: 'Poppins-Medium',
+                            fontWeight: FontWeight.w600,
+                          )),
+                    ],
+                  ),
+                  decoration: BoxDecoration(
+                    color: titleBgColor,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
                 ),
+              ],
+            ),
+            const SizedBox(height: 5),
+            RichText(
+              //maxLines: 9,
+              textAlign: TextAlign.center,
+              text: TextSpan(
+                children: [
+                  TextSpan(
+                    text: x[num],
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17.0,
+                      fontFamily: 'Lora',
+                      fontWeight: FontWeight.w500,
+                      height: 1.5,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "\nYour Answer: ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17.0,
+                      fontFamily: 'Poppins-Medium',
+                      fontWeight: FontWeight.w600,
+                      height: 2,
+                    ),
+                  ),
+                  TextSpan(
+                    text: y[num],
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17.0,
+                      fontFamily: 'Lora',
+                      fontWeight: FontWeight.w600,
+                      height: 1,
+                    ),
+                  ),
+                  TextSpan(
+                    text: "\nCorrect Answer: ",
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17.0,
+                      fontFamily: 'Poppins-Medium',
+                      fontWeight: FontWeight.w600,
+                      height: 2,
+                    ),
+                  ),
+                  TextSpan(
+                    text: z[num],
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 17.0,
+                      fontFamily: 'Lora',
+                      fontWeight: FontWeight.w600,
+                      height: 1,
+                    ),
+                  ),
+                ],
               ),
-              TextSpan(
-                text: "\nYour Answer: " + y[num],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 17.0,
-                  fontFamily: 'Poppins-Medium',
-                  fontWeight: FontWeight.w600,
-                  height: 2,
-                ),
-              ),
-              TextSpan(
-                text: "\nCorrect Answer: " + z[num],
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 17.0,
-                  fontFamily: 'Poppins-Medium',
-                  fontWeight: FontWeight.w600,
-                  height: 2,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
       decoration: BoxDecoration(
-        color: colors,
-        borderRadius: BorderRadius.circular(25),
-        boxShadow: [
-          BoxShadow(
-            color: colors,
-            offset: Offset(
-              -3.0,
-              4.0,
-            ),
-            blurRadius: 5.0,
-          ),
-        ],
+        color: cardColor,
+        borderRadius: BorderRadius.circular(15),
       ),
     );
   }
@@ -123,13 +165,32 @@ class _DetailsState extends State<Details> {
             children: <Widget>[
               for (int a = 0; a < 10; a++) ...[
                 if (y[a].toString() == z[a].toString()) ...[
-                  display(a, const Color.fromRGBO(5, 195, 107, 0.38)),
+                  display(
+                    a,
+                    const Color.fromRGBO(5, 195, 107, 0.38),
+                    Icons.done_rounded,
+                    "Correct",
+                    const Color.fromRGBO(5, 195, 107, 1),
+                    Colors.white,
+                  ),
                   SizedBox(height: 16),
                 ] else if (y[a].toString() == "None") ...[
-                  display(a, const Color.fromRGBO(240, 243, 60, 100)),
+                  display(
+                      a,
+                      const Color.fromRGBO(240, 243, 60, 0.5),
+                      Icons.warning_rounded,
+                      "Skipped",
+                      const Color.fromRGBO(240, 243, 60, 1),
+                      Colors.black),
                   SizedBox(height: 16),
                 ] else if (y[a].toString() != z[a].toString()) ...[
-                  display(a, const Color.fromRGBO(243, 83, 86, 100)),
+                  display(
+                      a,
+                      const Color.fromRGBO(243, 83, 86, 0.6),
+                      Icons.close_rounded,
+                      "Wrong",
+                      const Color.fromRGBO(243, 83, 86, 1),
+                      Colors.white),
                   SizedBox(height: 16),
                 ]
               ],

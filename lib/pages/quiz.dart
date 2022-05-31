@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import '/pages/result.dart';
 import 'package:flutter_quizapp/pages/questionandanswer.dart';
@@ -107,8 +106,8 @@ class _QuizState extends State<Quiz> {
 
 //initialization for timer
   bool canceltimer = false;
-  int timeLeft = 10;
-  var timestring = "10";
+  int timeLeft = 30;
+  var timestring = "30";
   @override
   void initState() {
     starttimer();
@@ -152,7 +151,7 @@ class _QuizState extends State<Quiz> {
           extendBodyBehindAppBar: true,
           appBar: AppBar(
             title: Text(
-              widget.titl,
+              widget.titl.replaceAll("_", " "),
               style: const TextStyle(
                 fontSize: 24,
                 color: Colors.black,
@@ -313,20 +312,18 @@ class _QuizState extends State<Quiz> {
       );
 
   void updateQuestion() {
-    setState(() async {
+    setState(() {
       if (questionNumber < totalQuizQuest) {
+        questionNumber++;
         canceltimer = false;
-        timeLeft = 10; //delay display 10
+        timeLeft = 30; //delay display 10
 
         //proceed to next question
         randomNumber =
             Random().nextInt(quiz.tanong[int.parse(widget.y)].length);
 
-        questionNumber++;
-
         //Proceed to the result page
       } else if (questionNumber == totalQuizQuest) {
-        await Hive.openBox(widget.titl);
         final _historybox = Hive.box(widget.titl);
         //add value to box
         Future<void> _createItem(Map<String, dynamic> newItem) async {
@@ -341,7 +338,7 @@ class _QuizState extends State<Quiz> {
           "numCorrect": correctAnswer.toString(),
           "numWrong": wrongAnswer.toString(),
           "numSkipped": skipQuestion.toString(),
-          "timeTaken": timeTaken.toString()
+          "timeTaken": timeTaken[0].toString() + ": " + timeTaken[1].toString()
         });
         canceltimer = true;
         Navigator.push(
@@ -355,6 +352,7 @@ class _QuizState extends State<Quiz> {
                         timeTaken[0],
                         timeTaken[1]
                       ],
+                      title: widget.titl,
                     )));
       }
     });
