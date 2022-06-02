@@ -13,12 +13,15 @@ var questionNumber = 1; //initialize start of number question
 var skipQuestion = 0;
 var correctAnswer = 0;
 var wrongAnswer = 0;
+var catLevel = 0;
 List<dynamic> questions = [];
 List<dynamic> answers = [];
 List<dynamic> answersEval = [];
 List<dynamic> numQuestion = [];
+
 var timeTaken = [0, 0]; //[min, sec]
 //number of skipped question/ correct answer/ wrong answer/ time taken
+DateTime dt = DateTime.now();
 
 void reset() {
   questions.removeRange(0, 10);
@@ -324,6 +327,16 @@ class _QuizState extends State<Quiz> {
 
         //Proceed to the result page
       } else if (questionNumber == totalQuizQuest) {
+        final categorybox = Hive.box("Category_level");
+        if (categorybox.length == 0) {
+          categorybox.put('onlydata', correctAnswer);
+          catLevel = catLevel + correctAnswer;
+        } else if (categorybox.length == 1) {
+          var cat = categorybox.get('onlydata');
+          var data = int.parse(cat) + correctAnswer;
+          categorybox.put('onlydata', data);
+          catLevel = catLevel + correctAnswer;
+        }
         final _historybox = Hive.box(widget.titl);
         //add value to box
         Future<void> _createItem(Map<String, dynamic> newItem) async {
@@ -338,7 +351,15 @@ class _QuizState extends State<Quiz> {
           "numCorrect": correctAnswer.toString(),
           "numWrong": wrongAnswer.toString(),
           "numSkipped": skipQuestion.toString(),
-          "timeTaken": timeTaken[0].toString() + ": " + timeTaken[1].toString()
+          "timeTaken": timeTaken[0].toString() +
+              "mins " +
+              timeTaken[1].toString() +
+              "secs",
+          "date": dt.month.toString() +
+              "-" +
+              dt.day.toString() +
+              "-" +
+              dt.year.toString()
         });
         canceltimer = true;
         Navigator.push(

@@ -34,7 +34,8 @@ class _HistoryPageState extends State<HistoryPage> {
         "numCorrect": value['numCorrect'],
         "numWrong": value['numWrong'],
         "numSkipped": value['numSkipped'],
-        "timeTaken": value['timeTaken']
+        "timeTaken": value['timeTaken'],
+        "date": value['date']
       };
     }).toList();
     _items = data.reversed.toList();
@@ -266,6 +267,20 @@ class _HistoryPageState extends State<HistoryPage> {
                                         const Center(
                                           child: Text(
                                             "Wrong",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontFamily: 'Poppins-Medium',
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    //=========date
+                                    Row(
+                                      children: [
+                                        Center(
+                                          child: Text(
+                                            currentItem["date"],
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: 'Poppins-Medium',
