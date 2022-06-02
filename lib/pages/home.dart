@@ -3,6 +3,8 @@ import '/pages/categorypage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_quizapp/pages/quiz.dart';
 
+var samplecatLevel = 500;
+
 class HomePage extends StatefulWidget {
   @override
   State<HomePage> createState() => _HomePageState();
@@ -93,9 +95,9 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
                     onTap: () => {
-                      if (catLevel > 100)
+                      if (samplecatLevel > 100)
                         {toCategoryPage(2)}
-                      else if (catLevel < 100)
+                      else if (samplecatLevel < 100)
                         {print("Need to finish Personal Finance first")}
                     },
                     child: Ink.image(
@@ -121,9 +123,9 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
                     onTap: () => {
-                      if (catLevel > 200)
+                      if (samplecatLevel > 200)
                         {toCategoryPage(3)}
-                      else if (catLevel < 200)
+                      else if (samplecatLevel < 200)
                         {
                           print(
                               "Need to finish Investment and Management first")
@@ -145,9 +147,9 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
                     onTap: () => {
-                      if (catLevel > 300)
+                      if (samplecatLevel > 300)
                         {toCategoryPage(4)}
-                      else if (catLevel < 300)
+                      else if (samplecatLevel < 300)
                         {print("Need to finish Behavioral Finance first")}
                     },
                     child: Ink.image(
