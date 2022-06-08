@@ -14,6 +14,7 @@ void main() async {
   await Hive.openBox('Behavioral_Finance');
   await Hive.openBox('Capital_Market');
   await Hive.openBox('Profile_data');
+
   runApp(const MyApp());
 }
 

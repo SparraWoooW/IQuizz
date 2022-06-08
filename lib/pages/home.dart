@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import '/pages/categorypage.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:flutter_quizapp/pages/quiz.dart';
 
-var samplecatLevel = 500;
+var cat1 = 0, cat2 = 0, cat3 = 0;
 
 class HomePage extends StatefulWidget {
   @override
@@ -11,6 +10,17 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    final catlevel = Hive.box("Profile_data");
+    if (catlevel.isNotEmpty) {
+      cat1 = catlevel.get('Personal_FinancenumCorrect');
+      cat2 = catlevel.get('Investment_and_Portfolio_ManagementnumCorrect');
+      cat3 = catlevel.get('Behavioral_FinancenumCorrect');
+    }
+    super.initState();
+  }
+
   void toCategoryPage(x) {
     // ignore: prefer_typing_uninitialized_variables
     var numCat;
@@ -95,10 +105,17 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
                     onTap: () => {
-                      if (samplecatLevel > 100)
+                      if (cat1 > 100)
                         {toCategoryPage(2)}
-                      else if (samplecatLevel < 100)
-                        {print("Need to finish Personal Finance first")}
+                      else if (cat1 < 100)
+                        {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content:
+                                Text('Need to finish Personal Finance first'),
+                            backgroundColor: Color.fromARGB(255, 170, 7, 7),
+                          )),
+                        }
                     },
                     child: Ink.image(
                       image: const AssetImage('assets/images/investment.png'),
@@ -123,12 +140,16 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
                     onTap: () => {
-                      if (samplecatLevel > 200)
+                      if (cat2 > 100)
                         {toCategoryPage(3)}
-                      else if (samplecatLevel < 200)
+                      else if (cat2 < 100)
                         {
-                          print(
-                              "Need to finish Investment and Management first")
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text(
+                                'Need to finish Investment and Portfolio Management first'),
+                            backgroundColor: Color.fromARGB(255, 170, 7, 7),
+                          )),
                         }
                     },
                     child: Ink.image(
@@ -147,10 +168,17 @@ class _HomePageState extends State<HomePage> {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   child: InkWell(
                     onTap: () => {
-                      if (samplecatLevel > 300)
+                      if (cat3 > 100)
                         {toCategoryPage(4)}
-                      else if (samplecatLevel < 300)
-                        {print("Need to finish Behavioral Finance first")}
+                      else if (cat3 < 100)
+                        {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content:
+                                Text('Need to finish Behavioral Finance first'),
+                            backgroundColor: Color.fromARGB(255, 170, 7, 7),
+                          )),
+                        }
                     },
                     child: Ink.image(
                       image: const AssetImage('assets/images/capital.png'),

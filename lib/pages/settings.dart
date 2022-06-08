@@ -23,7 +23,7 @@ class _SettingsPageState extends State<SettingsPage> {
   Widget settingCard(
     text,
     Icon icon,
-    Null Function() param2,
+    Function() param2,
   ) {
     return Card(
       shape: RoundedRectangleBorder(

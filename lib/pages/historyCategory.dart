@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_quizapp/pages/history.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+
+var cat1 = 0, cat2 = 0, cat3 = 0;
 
 class HistoryPages extends StatefulWidget {
   const HistoryPages({Key? key}) : super(key: key);
@@ -11,9 +14,31 @@ class HistoryPages extends StatefulWidget {
 }
 
 class _HistoryPagesState extends State<HistoryPages> {
+  @override
+  void initState() {
+    final catlevel = Hive.box("Profile_data");
+    if (catlevel.isNotEmpty) {
+      cat1 = catlevel.get('Personal_FinancenumCorrect');
+      cat2 = catlevel.get('Investment_and_Portfolio_ManagementnumCorrect');
+      cat3 = catlevel.get('Behavioral_FinancenumCorrect');
+    }
+    setState(() {
+      if (cat1 >= 100) {
+        cat1 = 100;
+      }
+      if (cat2 >= 100) {
+        cat2 = 100;
+      }
+      if (cat3 >= 100) {
+        cat3 = 100;
+      }
+    });
+    super.initState();
+  }
+
   //Category history builder
   Widget History(double progress, String title, int attempts,
-      BuildContext context, String databaseName) {
+      BuildContext context, String databaseName, Function() func) {
     return Material(
       borderRadius: BorderRadius.circular(15),
       clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -91,15 +116,7 @@ class _HistoryPagesState extends State<HistoryPages> {
             ),
           ),
         ),
-        onTap: () => {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => HistoryPage(
-                      category: databaseName,
-                    )),
-          )
-        },
+        onTap: func,
       ),
     );
   }
@@ -144,41 +161,93 @@ class _HistoryPagesState extends State<HistoryPages> {
 
                 //============Personal Finance
                 History(
-                    0.75,
+                    100 / 100,
                     'Personal Finance',
                     Hive.box("Personal_Finance").length,
                     context,
-                    'Personal_Finance'),
+                    'Personal_Finance', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HistoryPage(
+                              category: "Personal_Finance",
+                            )),
+                  );
+                }),
+                const Padding(
+                    padding: EdgeInsets.all(6.0)), //Space between rows
+                //============Investment and Portfolio Management
+                History(
+                    cat1 / 100,
+                    'Investment and Portfolio Management',
+                    Hive.box("Investment_and_Portfolio_Management").length,
+                    context,
+                    'Investment_and_Portfolio_Management', () {
+                  if (cat1 >= 100) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HistoryPage(
+                                category: "Investment_and_Portfolio_Management",
+                              )),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('This category is locked'),
+                      backgroundColor: Color.fromARGB(255, 170, 7, 7),
+                    ));
+                  }
+                }),
                 const Padding(
                     padding: EdgeInsets.all(6.0)), //Space between rows
 
                 //============Capital Markets
                 History(
-                    0.25,
+                    cat2 / 100,
                     'Capital Markets',
                     Hive.box("Capital_Market").length,
                     context,
-                    'Capital_Market'),
+                    'Capital_Market', () {
+                  if (cat2 >= 100) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HistoryPage(
+                                category: "Investment_and_Portfolio_Management",
+                              )),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('This category is locked'),
+                      backgroundColor: Color.fromARGB(255, 170, 7, 7),
+                    ));
+                  }
+                }),
                 const Padding(
                     padding: EdgeInsets.all(6.0)), //Space between rows
 
                 //============Behavioral Finance
                 History(
-                    0.0,
+                    cat3 / 100,
                     'Behavioral Finance',
                     Hive.box("Behavioral_Finance").length,
                     context,
-                    'Behavioral_Finance'),
-                const Padding(
-                    padding: EdgeInsets.all(6.0)), //Space between rows
-
-                //============Investment and Portfolio Management
-                History(
-                    0.0,
-                    'Investment and Portfolio Management',
-                    Hive.box("Investment_and_Portfolio_Management").length,
-                    context,
-                    'Investment_and_Portfolio_Management'),
+                    'Behavioral_Finance', () {
+                  if (cat3 >= 100) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HistoryPage(
+                                category: "Investment_and_Portfolio_Management",
+                              )),
+                    );
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text('This category is locked'),
+                      backgroundColor: Color.fromARGB(255, 170, 7, 7),
+                    ));
+                  }
+                }),
                 const Padding(
                     padding: EdgeInsets.all(6.0)), //Space between rows
               ],
