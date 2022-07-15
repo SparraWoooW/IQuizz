@@ -14,6 +14,11 @@ void main() async {
   await Hive.openBox('Behavioral_Finance');
   await Hive.openBox('Capital_Market');
   await Hive.openBox('Profile_data');
+  //////////FOR NAME AND EMAIL////////// START
+//////////FOR NAME AND EMAIL////////// START
+  await Hive.openBox('User_info');
+
+  await Hive.openBox('avatar');
 
   runApp(const MyApp());
 }
@@ -48,7 +53,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int selectedIndex = 0;
   final screens = [
-    HomePage(),
+    const HomePage(),
     const HistoryPages(),
     const ProfilePage(),
     const SettingsPage(),
